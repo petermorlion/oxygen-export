@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <style>
+            * {
+                font-family: Verdana, Arial;
+                font-size: 12px; 
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 14px;
+            }
+
+            table {
+                width: 70%;
+            }
+
+            table tr {
+                -webkit-print-color-adjust: exact;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #CCC;
+            }
+
+            table tr:nth-child(odd) {
+                background-color: #AAA;
+            }
+
+            table tr td {
+                padding: 3px;
+            }
+
+            .pagebreak { 
+                page-break-before: always; 
+            }
+        </style>
+    </head>
+    <body>
+        Totaal: {{count}}
+        {{#patients}}
+        <h1>{{Name}} {{Surname}}</h1>
+        <table>
+            <tr>
+                <td>Geboortedatum</td><td>{{DateOfBirth | date}}</td>
+            </tr>
+            <tr>
+                <td>Rijksregisternummer</td><td>{{NISS}}</td>
+            </tr>
+            <tr>
+                <td>IBAN</td><td>{{IBAN}}</td>
+            </tr>
+            <tr>
+                <td>BIC</td><td>{{BIC}}</td>
+            </tr>
+            {{#Addresses}}
+            <tr>
+                <td>Adres</td><td>{{Street}}, {{ZIP}} {{City}}</td>
+            </tr>
+            {{/Addresses}}
+            {{#Telephones}}
+            <tr>
+                <td>Tel</td><td>{{Number}} ({{Info}})</td>
+            </tr>
+            {{/Telephones}}
+            {{#Emails}}
+            <tr>
+                <td>Email</td><td>{{Number}}</td>
+            </tr>
+            {{/Emails}}
+        </table>
+        <h2>Mutualiteiten</h2>
+        <table>
+            {{#GCs}}
+            <tr>
+                <td>
+                {{Mutuality}} - {{MutualityNr}}<br/>
+                {{MutualitySubscription}}<br/>
+                {{CG1}} - {{CG2}}<br/>
+                {{Start | date}} - {{End | date}}
+                </td>
+            </tr>
+            {{/GCs}}
+        </table>
+        <h2>Voorschriften</h2>
+        <table>
+            {{#Prescriptions}}
+            <tr>
+                <td>
+                    {{TypePrestation}}<br/>
+                    {{Diagnosis}} (Dr. {{Doctor}})<br/>
+                    {{PrescriptionDate | date}}<br/>
+                    {{Performed}} / {{SessionNumber}}
+                </td>
+            </tr>
+            {{/Prescriptions}}
+        </table>
+        <h2>Periodes</h2>
+        <table>
+            {{#Periods}}
+            <tr>
+                <td>
+                    <strong>Stoornis:</strong> {{Disorder}}<br/>
+                    <strong>Omschrijving:</strong> {{PathologyTypeDesc}}<br/>
+                    <strong>Goedgekeurd:</strong> {{PeriodApprovalDate | date}}<br/>
+                    <strong>Goedkeuring van:</strong> {{PeriodStartDate | date}}<br/>
+                    <strong>Goedkeuring tot:</strong> {{PeriodEndDate | date}}<br/>
+                </td>
+            </tr>
+            {{/Periods}}
+        </table>
+        <div class="pagebreak"> </div>
+        {{/patients}}
+    </body>
+</html>
